@@ -1755,7 +1755,8 @@ footer {
     grid-template-columns: 1fr;
   }
   .gis-console {
-    height: 480px;
+    height: auto;
+    max-height: 520px;
   }
   .method-pillars {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1768,33 +1769,231 @@ footer {
 
 @media (max-width: 640px) {
   main {
-    padding: 0 16px 36px;
+    padding: 0 14px 32px;
   }
   .topbar {
-    padding: 16px;
+    padding: 12px 14px;
   }
   .status-pill {
     display: none;
   }
   .workspace-section {
-    padding: 18px 16px;
+    padding: 16px 14px;
   }
   .workspace-header {
     flex-direction: column;
+    gap: 12px;
   }
   .workspace-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
     width: 100%;
   }
   .workspace-controls button {
-    flex: 1 1 auto;
+    flex: 1 1 calc(50% - 6px);
+    font-size: 0.8rem;
+    padding: 0.55rem 0.75rem;
   }
   #map {
     height: 380px;
   }
-  .method-pillars {
-    grid-template-columns: 1fr;
+
+  /* Survey floating hint on mobile */
+  .survey-floating-hint {
+    width: calc(100% - 20px);
+    left: 10px;
+    transform: none;
+    padding: 6px 10px;
+    font-size: 0.74rem;
+    justify-content: space-between;
+  }
+
+  /* Map Popups on mobile */
+  .leaflet-popup-content-wrapper,
+  .custom-popup .leaflet-popup-content-wrapper {
+    max-width: calc(100vw - 32px) !important;
+  }
+  .leaflet-popup-content,
+  .custom-popup .leaflet-popup-content {
+    margin: 8px 10px !important;
+  }
+  .popup-wrap {
+    min-width: 190px;
+    max-width: min(250px, calc(100vw - 56px));
+  }
+  .popup-thumb-wrap .popup-thumb {
+    height: 95px;
+  }
+  .popup-btn-group {
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .popup-btn,
+  .popup-streetview-btn {
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.78rem;
+    box-sizing: border-box;
+  }
+
+  /* Console & Tabs on mobile */
+  .gis-console {
+    height: auto;
+    max-height: none;
+  }
+  .tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .tab-btn {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  /* Point filter bar on mobile */
+  .point-filter-bar {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 10px;
+  }
+  .filter-indicator {
+    font-size: 0.78rem;
+  }
+  .clear-filter-btn {
+    margin-left: auto;
+  }
+
+  /* Observation Cards in Pantauan Warga on mobile */
+  .obs-card {
+    align-items: flex-start;
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  .obs-thumb-wrap {
+    width: 52px;
+    height: 52px;
+  }
+  .obs-thumb-placeholder {
+    width: 52px;
+    height: 52px;
+  }
+  .obs-title-wrap {
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: 4px;
+    margin-bottom: 2px;
+  }
+  .obs-title {
+    font-size: 0.84rem;
+  }
+  .obs-urgency,
+  .obs-urgency-text {
+    font-size: 0.76rem;
+  }
+  .obs-meta {
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: 4px;
+    font-size: 0.76rem;
+    margin-bottom: 6px;
+  }
+  .obs-note-snippet {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .obs-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+  }
+  .obs-inspect-btn,
+  .obs-locate-btn,
+  .obs-streetview-btn {
+    flex: 1 1 auto;
+    min-width: calc(33.333% - 6px);
+    padding: 0.35rem 0.45rem;
+    font-size: 0.72rem;
+    text-align: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  /* Comparison Modal on mobile */
+  .comparison-modal {
+    width: 95vw;
+    max-height: 92vh;
+    padding: 16px 14px;
+    margin: auto;
+  }
+  .dialog-head h2 {
+    font-size: 1.1rem;
+  }
+  .dialog-subtitle {
+    font-size: 0.78rem;
   }
   .comparison-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .comparison-card {
+    padding: 12px;
+    gap: 10px;
+  }
+  .comparison-photo-wrap {
+    height: 190px;
+  }
+  .modal-gallery-strip {
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+  .modal-gallery-btn {
+    padding: 4px 8px;
+    font-size: 0.74rem;
+    flex-shrink: 0;
+  }
+  .detail-meta-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 8px 10px;
+  }
+  .comparison-actions {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 8px;
+    margin-top: 12px;
+    width: 100%;
+  }
+  .comparison-actions a,
+  .comparison-actions button {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 0.6rem 0.8rem;
+    box-sizing: border-box;
+    white-space: normal;
+  }
+
+  /* Method pillars & summary on mobile */
+  .method-pillars {
+    grid-template-columns: 1fr;
+  }
+  .summary-metrics {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
 }
