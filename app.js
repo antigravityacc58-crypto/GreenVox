@@ -635,6 +635,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "Peta Komunitas (HOT)": hotOsm
   }, null, { position: "topright" }).addTo(map);
 
+  const schoolGmapsUrl = "https://www.google.com/maps/search/?api=1&query=SMP+Islam+Al-Azhar+19+Cibubur";
+  const schoolStreetViewUrl = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${SCHOOL.lat},${SCHOOL.lng}`;
+
   const schoolMarker = L.marker([SCHOOL.lat, SCHOOL.lng], {
     icon: L.divIcon({
       className: "pilot-marker",
@@ -646,7 +649,11 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="popup-wrap school-popup-wrap">
       <div class="popup-title">Titik Fokus GreenVox</div>
       <div class="popup-school-name">${SCHOOL.name}</div>
-      <p class="popup-note">Pusat zona studi satelit. Pantauan warga dapat ditambahkan di mana saja pada peta.</p>
+      <p class="popup-note">Pusat zona studi satelit (Radius 250 m). Pantauan warga dapat ditambahkan di mana saja pada koridor Cibubur.</p>
+      <div class="popup-btn-group">
+        <a href="${schoolGmapsUrl}" target="_blank" rel="noopener noreferrer" class="popup-btn">Google Maps &nearr;</a>
+        <a href="${schoolStreetViewUrl}" target="_blank" rel="noopener noreferrer" class="popup-streetview-btn">Street View 360&deg;</a>
+      </div>
     </div>
   `, { className: "custom-popup" });
 

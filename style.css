@@ -1675,15 +1675,17 @@ main {
 }
 
 .popup-btn {
+  display: block;
   padding: 0.45rem 0.8rem;
   font-size: 0.82rem;
   background: var(--ink);
-  color: #ffffff;
+  color: #ffffff !important;
   border-radius: 6px;
   text-align: center;
   font-weight: 600;
   width: 100%;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .popup-btn:hover {
