@@ -1,10 +1,10 @@
-# GreenScope Social Movement + Environmental Use Guide
+# GreenVox Social Movement + Environmental Use Guide
 
 ## Movement proposition
 
 **Map. Act. Grow.**
 
-GreenScope should not be presented as a website that “tells people where to plant trees.”
+GreenVox should not be presented as a website that “tells people where to plant trees.”
 It is a community evidence loop:
 
 **Satellite evidence → public understanding → field verification → community discussion → local action → monitoring again.**
@@ -26,7 +26,7 @@ Collect at least 50 anonymous ground observations in the 250 m pilot area.
 - environmental/community volunteers.
 
 ### What participants do
-1. Open the public GreenScope link.
+1. Open the public GreenVox link.
 2. Choose **Pilot Area**.
 3. Read the satellite evidence.
 4. Activate **Survey Mode**.
@@ -76,4 +76,4 @@ A strong 3-minute demonstration:
 3. **Map:** switch Jakarta View → Pilot Area.
 4. **Participation:** activate Survey Mode and submit one sample field observation.
 5. **Impact:** show the community counter update.
-6. **Message:** “GreenScope does not turn a satellite pixel directly into a planting instruction. It turns it into a question that students and the community verify together.”
+6. **Message:** “GreenVox does not turn a satellite pixel directly into a planting instruction. It turns it into a question that students and the community verify together.”

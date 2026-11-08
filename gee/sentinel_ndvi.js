@@ -1,4 +1,4 @@
-// GreenScope — Sentinel-2 NDVI quick analysis
+// GreenVox — Sentinel-2 NDVI quick analysis
 // Paste this into https://code.earthengine.google.com/
 // IMPORTANT: the 250 m buffer is only a temporary AOI.
 // Replace it with a validated school boundary before final paper analysis.
@@ -117,6 +117,6 @@ Map.addLayer(aoi, {color: 'white'}, 'Temporary 250m AOI');
 // Optional CSV export for documentation
 Export.table.toDrive({
   collection: monthly,
-  description: 'greenscope_monthly_ndvi',
+  description: 'GreenVox_monthly_ndvi',
   fileFormat: 'CSV'
 });

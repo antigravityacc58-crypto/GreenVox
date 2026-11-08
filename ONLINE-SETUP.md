@@ -1,4 +1,4 @@
-# GreenScope Online Setup
+# GreenVox Online Setup
 
 ## A. Public website only — fastest for ISIF
 
@@ -8,7 +8,7 @@ This is enough for a booth prototype.
 
 ## B. Shared community participation — recommended for social movement
 
-GreenScope can switch automatically to a shared database when `config.js` contains valid Supabase credentials.
+GreenVox can switch automatically to a shared database when `config.js` contains valid Supabase credentials.
 
 ### Setup
 
@@ -20,7 +20,7 @@ GreenScope can switch automatically to a shared database when `config.js` contai
 4. Edit `config.js`:
 
 ```js
-window.GREENSCOPE_CONFIG = {
+window.GreenVox_CONFIG = {
   SUPABASE_URL: "https://YOUR_PROJECT.supabase.co",
   SUPABASE_ANON_KEY: "YOUR_ANON_KEY",
   COMMUNITY_OBSERVATION_GOAL: 50

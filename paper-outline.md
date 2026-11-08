@@ -1,13 +1,13 @@
-# Draft Konsep Paper GreenScope
+# Draft Konsep Paper GreenVox
 
 ## Working title
-**GreenScope: Integrating Satellite-Derived Vegetation Monitoring and Student Citizen Science for School-Based Urban Greening**
+**GreenVox: Integrating Satellite-Derived Vegetation Monitoring and Student Citizen Science for School-Based Urban Greening**
 
 ## Core problem
 Sekolah perkotaan membutuhkan cara sederhana untuk memahami kondisi ruang hijaunya dan mengubah informasi tersebut menjadi tindakan yang dapat dilakukan komunitas sekolah.
 
 ## Proposed novelty
-GreenScope menggabungkan:
+GreenVox menggabungkan:
 1. analisis vegetasi berbasis citra satelit,
 2. WebGIS interaktif,
 3. observasi lapangan oleh siswa (citizen science), dan

@@ -2,9 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const SCHOOL = { name: "SMP Islam Al-Azhar 19 Cibubur", lat: -6.3663, lng: 106.8883 };
   const STUDY_RADIUS_M = 250;
   const JAKARTA_BOUNDS = [[-6.39, 106.67], [-6.04, 106.99]];
-  const LOCAL_STORAGE_KEY = "greenscope-observations-cibubur-v3";
+  const LOCAL_STORAGE_KEY = "greenvox-observations-cibubur-v3";
+  const LEGACY_STORAGE_KEY = "greenscope-observations-cibubur-v3";
 
-  const cfg = window.GREENSCOPE_CONFIG || {};
+  const cfg = window.GREENVOX_CONFIG || window.GREENSCOPE_CONFIG || {};
   const COMMUNITY_GOAL = Number(cfg.COMMUNITY_OBSERVATION_GOAL) || 50;
   const SUPABASE_URL = String(cfg.SUPABASE_URL || "").replace(/\/$/, "");
   const SUPABASE_KEY = String(cfg.SUPABASE_ANON_KEY || "");
@@ -107,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function localRead() {
     try {
-      const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+      const stored = localStorage.getItem(LOCAL_STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
       if (!stored) {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(defaultSampleObservations));
         return defaultSampleObservations;
@@ -558,7 +559,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }).addTo(map).bindPopup(`
     <div class="popup-wrap school-popup-wrap">
-      <div class="popup-title">Titik Fokus GreenScope</div>
+      <div class="popup-title">Titik Fokus GreenVox</div>
       <div class="popup-school-name">${SCHOOL.name}</div>
       <p class="popup-note">Pusat zona studi satelit. Pantauan warga dapat ditambahkan di mana saja pada peta.</p>
     </div>
@@ -878,7 +879,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const geojson = {
       type: "FeatureCollection",
       metadata: {
-        project: "GreenScope",
+        project: "GreenVox",
         fokus_wilayah: SCHOOL.name,
         study_radius_m: STUDY_RADIUS_M,
         exported_at: new Date().toISOString()
@@ -890,7 +891,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `greenscope-pantauan-lapangan-${new Date().toISOString().slice(0, 10)}.geojson`;
+    link.download = `greenvox-pantauan-lapangan-${new Date().toISOString().slice(0, 10)}.geojson`;
     link.click();
     URL.revokeObjectURL(url);
   });

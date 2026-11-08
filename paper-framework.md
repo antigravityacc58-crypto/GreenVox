@@ -1,8 +1,8 @@
-# GreenScope Paper Framework
+# GreenVox Paper Framework
 
 ## Working Title
 
-**GreenScope: Integrating Sentinel-2 Vegetation Change Detection and Student Citizen Science for School-Centered Community Green Monitoring in Jakarta**
+**GreenVox: Integrating Sentinel-2 Vegetation Change Detection and Student Citizen Science for School-Centered Community Green Monitoring in Jakarta**
 
 ## Central Research Question
 

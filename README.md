@@ -1,6 +1,6 @@
-# GreenScope: Platform WebGIS Pemantauan Lingkungan dan Sains Warga Cibubur
+# GreenVox: Platform WebGIS Pemantauan Lingkungan dan Sains Warga Cibubur
 
-GreenScope adalah platform WebGIS komunitas berbasis sekolah yang memadukan data penginderaan jauh satelit Sentinel-2 dengan pantauan foto nyata dari warga (User Generated Content / Ground Truth) di sekitar SMP Islam Al-Azhar 19 Cibubur, Jakarta Timur.
+GreenVox adalah platform WebGIS komunitas berbasis sekolah yang memadukan data penginderaan jauh satelit Sentinel-2 dengan pantauan foto nyata dari warga (User Generated Content / Ground Truth) di sekitar SMP Islam Al-Azhar 19 Cibubur, Jakarta Timur.
 
 ## Fitur Utama
 
