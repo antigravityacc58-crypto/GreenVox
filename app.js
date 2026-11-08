@@ -303,7 +303,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!currentModalPhotos || !currentModalPhotos[index]) return;
     currentModalPhotoIndex = index;
     const modalPhoto = $("modalFieldPhoto");
+    const modalBlur = $("modalFieldPhotoBlur");
     if (modalPhoto) modalPhoto.src = currentModalPhotos[index];
+    if (modalBlur) modalBlur.src = currentModalPhotos[index];
 
     const buttons = document.querySelectorAll(".modal-gallery-btn");
     buttons.forEach((btn, i) => {
@@ -319,6 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const urg = urgencies[obs.urgency] || urgencies.urgent;
 
     const modalPhoto = $("modalFieldPhoto");
+    const modalBlur = $("modalFieldPhotoBlur");
     const modalNoPhoto = $("modalNoPhoto");
     const galleryEl = $("modalPhotoGallery");
 
@@ -351,9 +354,14 @@ document.addEventListener("DOMContentLoaded", () => {
         modalPhoto.src = photos[0];
         modalPhoto.hidden = false;
       }
+      if (modalBlur) {
+        modalBlur.src = photos[0];
+        modalBlur.hidden = false;
+      }
       if (modalNoPhoto) modalNoPhoto.hidden = true;
     } else {
       if (modalPhoto) modalPhoto.hidden = true;
+      if (modalBlur) modalBlur.hidden = true;
       if (modalNoPhoto) modalNoPhoto.hidden = false;
     }
 

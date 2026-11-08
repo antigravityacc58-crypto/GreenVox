@@ -1308,21 +1308,41 @@ main {
 }
 
 .comparison-photo-wrap {
+  position: relative;
   width: 100%;
   height: 240px;
   border-radius: var(--radius);
   overflow: hidden;
-  background: #0f172a;
+  background: var(--surface-alt);
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--line);
 }
 
-.comparison-photo-wrap img {
-  width: 100%;
+.photo-blur-backdrop {
+  position: absolute;
+  top: -15%;
+  left: -15%;
+  width: 130%;
+  height: 130%;
+  object-fit: cover;
+  filter: blur(20px) saturate(1.2) brightness(0.8);
+  transform: scale(1.1);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.photo-main-fg {
+  position: relative;
+  width: auto;
+  max-width: 100%;
   height: 100%;
   object-fit: contain;
+  z-index: 2;
+  border-radius: 4px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
 }
 
 .modal-gallery-strip {
