@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const SCHOOL = { name: "SMP Islam Al-Azhar 19 Cibubur", lat: -6.3663, lng: 106.8883 };
   const STUDY_RADIUS_M = 250;
   const JAKARTA_BOUNDS = [[-6.39, 106.67], [-6.04, 106.99]];
-  const LOCAL_STORAGE_KEY = "greenvox-observations-cibubur-v3";
+  const LOCAL_STORAGE_KEY = "greenvox-observations-cibubur-v4";
   const LEGACY_STORAGE_KEY = "greenscope-observations-cibubur-v3";
 
   const cfg = window.GREENVOX_CONFIG || window.GREENSCOPE_CONFIG || {};
@@ -85,36 +85,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const defaultSampleObservations = [
     {
-      id: "sample-cibubur-1",
-      category: "critical",
-      urgency: "urgent",
-      note: "Area tanah terbuka di sisi timur sekolah, terpapar terik matahari langsung tanpa peneduh. Prioritas penanaman bibit pohon peneduh.",
-      photo: null,
-      lat: -6.3658,
-      lng: 106.8890,
-      createdAt: new Date(Date.now() - 3600000 * 5).toISOString()
-    },
-    {
-      id: "sample-cibubur-2",
+      id: "titik-lapangan-1",
       category: "tree",
       urgency: "conserved",
-      note: "Deretan pohon ketapang dan mahoni eksisting dekat gerbang sekolah, kondisi tajuk lebat dan subur.",
-      photo: null,
-      lat: -6.3669,
-      lng: 106.8878,
-      createdAt: new Date(Date.now() - 3600000 * 24).toISOString()
+      note: "Deretan pohon peneduh rimbun di koridor jalan dengan kanopi lebat dan vegetasi sehat. Berfungsi efektif sebagai peneduh alami dan penyerap emisi kendaraan.",
+      photo: "data/photos/titik1-pic1.jpg",
+      photos: [
+        "data/photos/titik1-pic1.jpg",
+        "data/photos/titik1-pic2.jpg"
+      ],
+      lat: -6.348527,
+      lng: 106.884546,
+      mapsUrl: "https://maps.app.goo.gl/GEemTwiDR9XQpgNN9",
+      createdAt: new Date(Date.now() - 3600000 * 2).toISOString()
+    },
+    {
+      id: "titik-lapangan-2",
+      category: "tree",
+      urgency: "conserved",
+      note: "Area pepohonan berbatang kokoh dan lantai tanah bervegetasi alami dengan lapisan serasah subur. Kondisi ekosistem lokal terjaga dengan baik.",
+      photo: "data/photos/titik2-pic3.jpg",
+      photos: [
+        "data/photos/titik2-pic3.jpg",
+        "data/photos/titik2-pic4.jpg"
+      ],
+      lat: -6.355526,
+      lng: 106.886819,
+      mapsUrl: "https://maps.app.goo.gl/TraoAJVF58rS2mDX8",
+      createdAt: new Date(Date.now() - 3600000 * 5).toISOString()
     }
   ];
 
   function localRead() {
     try {
-      const stored = localStorage.getItem(LOCAL_STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
+      const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (!stored) {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(defaultSampleObservations));
         return defaultSampleObservations;
       }
       const parsed = JSON.parse(stored);
-      return Array.isArray(parsed) && parsed.length > 0 ? parsed : defaultSampleObservations;
+      if (!Array.isArray(parsed) || parsed.length === 0) {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(defaultSampleObservations));
+        return defaultSampleObservations;
+      }
+      const hasLegacyOnly = parsed.every(o => String(o.id).startsWith("sample-cibubur"));
+      if (hasLegacyOnly) {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(defaultSampleObservations));
+        return defaultSampleObservations;
+      }
+      return parsed;
     } catch {
       return defaultSampleObservations;
     }
@@ -277,6 +296,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if ($("missionProgress")) $("missionProgress").style.width = `${progress}%`;
   }
 
+  let currentModalPhotos = [];
+  let currentModalPhotoIndex = 0;
+
+  window.switchModalPhoto = function(index) {
+    if (!currentModalPhotos || !currentModalPhotos[index]) return;
+    currentModalPhotoIndex = index;
+    const modalPhoto = $("modalFieldPhoto");
+    if (modalPhoto) modalPhoto.src = currentModalPhotos[index];
+
+    const buttons = document.querySelectorAll(".modal-gallery-btn");
+    buttons.forEach((btn, i) => {
+      btn.classList.toggle("active", i === index);
+    });
+  };
+
   window.showComparison = function(id) {
     const obs = observations.find(o => String(o.id) === String(id));
     if (!obs) return;
@@ -286,9 +320,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const modalPhoto = $("modalFieldPhoto");
     const modalNoPhoto = $("modalNoPhoto");
-    if (obs.photo) {
+    const galleryEl = $("modalPhotoGallery");
+
+    const photos = Array.isArray(obs.photos) && obs.photos.length > 0
+      ? obs.photos
+      : (obs.photo ? [obs.photo] : []);
+
+    currentModalPhotos = photos;
+    currentModalPhotoIndex = 0;
+
+    if (photos.length > 1) {
+      if (galleryEl) {
+        galleryEl.innerHTML = photos.map((src, idx) => `
+          <button type="button" class="modal-gallery-btn ${idx === 0 ? "active" : ""}" onclick="window.switchModalPhoto(${idx})">
+            <img src="${src}" alt="Dokumentasi ${idx + 1}">
+            <span>Foto ${idx + 1}</span>
+          </button>
+        `).join("");
+        galleryEl.hidden = false;
+      }
+    } else {
+      if (galleryEl) {
+        galleryEl.innerHTML = "";
+        galleryEl.hidden = true;
+      }
+    }
+
+    if (photos.length > 0) {
       if (modalPhoto) {
-        modalPhoto.src = obs.photo;
+        modalPhoto.src = photos[0];
         modalPhoto.hidden = false;
       }
       if (modalNoPhoto) modalNoPhoto.hidden = true;
@@ -326,7 +386,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const streetViewLink = $("modalStreetViewLink");
     if (streetViewLink) {
-      streetViewLink.href = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${obs.lat},${obs.lng}`;
+      streetViewLink.href = obs.mapsUrl || `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${obs.lat},${obs.lng}`;
+      streetViewLink.textContent = obs.mapsUrl ? "Buka di Google Maps ↗" : "Buka Google Street View 360°";
     }
 
     const dialog = $("comparisonDialog");
@@ -388,9 +449,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         markerMap.set(String(obs.id), marker);
 
-        const streetViewUrl = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${obs.lat},${obs.lng}`;
+        const streetViewUrl = obs.mapsUrl || `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${obs.lat},${obs.lng}`;
+        const photoCountBadge = (obs.photos && obs.photos.length > 1)
+          ? `<span class="popup-photo-badge">${obs.photos.length} Foto</span>`
+          : "";
         const photoHtml = obs.photo
-          ? `<img src="${obs.photo}" class="popup-thumb" alt="Foto kondisi lapangan">`
+          ? `
+            <div class="popup-thumb-wrap">
+              <img src="${obs.photo}" class="popup-thumb" alt="Foto kondisi lapangan">
+              ${photoCountBadge}
+            </div>
+          `
           : "";
         const popupContent = `
           <div class="popup-wrap">
@@ -405,7 +474,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <p class="popup-note">${escapeHtml(obs.note || "Tidak ada catatan lapangan.")}</p>
             <div class="popup-btn-group">
               <button type="button" class="popup-btn" onclick="window.showComparison('${obs.id}')">Evaluasi</button>
-              <a href="${streetViewUrl}" target="_blank" rel="noopener noreferrer" class="popup-streetview-btn">Street View 360&deg;</a>
+              <a href="${streetViewUrl}" target="_blank" rel="noopener noreferrer" class="popup-streetview-btn">${obs.mapsUrl ? "Google Maps" : "Street View 360&deg;"}</a>
             </div>
           </div>
         `;
@@ -434,7 +503,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const cardsHtml = filteredObs.map(obs => {
           const cat = categories[obs.category] || categories.critical;
           const urg = urgencies[obs.urgency] || urgencies.urgent;
-          const streetViewUrl = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${obs.lat},${obs.lng}`;
+          const streetViewUrl = obs.mapsUrl || `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${obs.lat},${obs.lng}`;
           const dateFormatted = obs.createdAt
             ? new Date(obs.createdAt).toLocaleDateString("id-ID", {
                 day: "numeric",
@@ -442,8 +511,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 year: "numeric"
               })
             : "2026";
+          const photoCountBadge = (obs.photos && obs.photos.length > 1)
+            ? `<span class="obs-photo-count">${obs.photos.length} Foto</span>`
+            : "";
           const thumbHtml = obs.photo
-            ? `<img src="${obs.photo}" class="obs-thumb" alt="Foto lapangan">`
+            ? `
+              <div class="obs-thumb-wrap">
+                <img src="${obs.photo}" class="obs-thumb" alt="Foto lapangan">
+                ${photoCountBadge}
+              </div>
+            `
             : `<div class="obs-thumb-placeholder"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Foto</span></div>`;
 
           return `
@@ -463,7 +540,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="obs-action-row">
                   <button type="button" class="obs-inspect-btn" onclick="event.stopPropagation(); window.showComparison('${obs.id}')">Evaluasi</button>
                   <button type="button" class="obs-locate-btn" onclick="event.stopPropagation(); window.locateObservation('${obs.id}')">Lihat Peta</button>
-                  <a href="${streetViewUrl}" target="_blank" rel="noopener noreferrer" class="obs-streetview-btn" onclick="event.stopPropagation()">Street View</a>
+                  <a href="${streetViewUrl}" target="_blank" rel="noopener noreferrer" class="obs-streetview-btn" onclick="event.stopPropagation()">${obs.mapsUrl ? "Google Maps" : "Street View"}</a>
                 </div>
               </div>
             </div>
@@ -501,8 +578,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   map = L.map("map", {
-    center: [SCHOOL.lat, SCHOOL.lng],
-    zoom: 16,
+    center: [-6.3574, 106.8864],
+    zoom: 15,
     zoomControl: true
   });
 

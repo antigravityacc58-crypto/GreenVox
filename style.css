@@ -638,6 +638,31 @@ main {
   box-shadow: none;
 }
 
+.obs-thumb-wrap {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+}
+
+.obs-thumb-wrap .obs-thumb {
+  width: 100%;
+  height: 100%;
+}
+
+.obs-photo-count {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  background: rgba(17, 24, 39, 0.85);
+  color: #ffffff;
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 1px 4px;
+  border-radius: 3px;
+  line-height: 1.2;
+}
+
 .obs-thumb {
   width: 58px;
   height: 58px;
@@ -1300,6 +1325,47 @@ main {
   object-fit: cover;
 }
 
+.modal-gallery-strip {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.modal-gallery-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.modal-gallery-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.modal-gallery-btn:hover {
+  border-color: #94a3b8;
+  color: var(--ink);
+}
+
+.modal-gallery-btn.active {
+  border-color: var(--ink);
+  color: var(--ink);
+  font-weight: 600;
+  background: var(--surface-alt);
+}
+
 .no-photo-box {
   font-size: 0.82rem;
   color: var(--muted);
@@ -1511,6 +1577,24 @@ main {
 .popup-urg {
   color: var(--muted);
   font-weight: 500;
+}
+
+.popup-thumb-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.popup-photo-badge {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: rgba(17, 24, 39, 0.82);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  pointer-events: none;
 }
 
 .popup-thumb {
